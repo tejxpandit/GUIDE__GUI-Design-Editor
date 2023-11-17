@@ -3,7 +3,7 @@
 # Author : Tej Pandit
 # Date : Nov, 2023
 
-class themes:
+class Themes:
     def __init__(self):
 
         # LIGHT COLORS

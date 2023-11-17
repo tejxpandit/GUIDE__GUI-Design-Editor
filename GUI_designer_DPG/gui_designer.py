@@ -7,8 +7,9 @@ import os
 import pickle
 import dearpygui.dearpygui as dpg
 
-from gui_themes import themes
+from utils.RepeatedTimer import RepeatedTimer
 
+from gui_themes import Themes
 from components.viewport import Viewport
 from components.panel import Panel
 from components.button import Button
@@ -39,8 +40,8 @@ def save_data(ext=""):
     gui_all.append(gui_viewport)
     gui_all.append(gui_panels)
     gui_all.append(gui_components)
-    with open(ext + save_filename, 'wb') as file: 
-        pickle.dump(gui_all, file)
+    pickle.dump(gui_all, open(ext + save_filename, 'wb'))
+        
 
 # Load Saved GUI Components
 def load_data():
@@ -69,12 +70,25 @@ def get_data_filenames():
 def delete_new_project_window():
     dpg.delete_item("new_project_win")
 
+# Window Identification Polling Function
+def start_window_polling_timer():
+    timer.set_timer(interval=1.0, function=identify_active_window)
+    timer.start()
+
+# Window Identification Function
+def identify_active_window():
+    global active_panel
+    window_key = dpg.get_active_window()
+    if window_key in gui_panels:
+        active_panel = window_key
+        dpg.set_value("selected_panel_text", "Selected Panel : " + str(gui_panels.get(active_panel).label))
 ##########################################################
 ## COMPONENT CALLBACKS ##
 
 def new_gui_project_button_callback():
     delete_new_project_window()
     start_designer_window()
+    start_window_polling_timer()
 
 def restore_gui_project_button_callback():
     delete_new_project_window()
@@ -86,7 +100,7 @@ def restore_gui_file_dropdown(s, file):
     save_filename = file
 
 def add_panel_callback():
-    dpg.add_window(label="New Panel", pos=new_panel_position)
+    Panel(name="panel ", pos=new_panel_position, width=designer_window_width, height=designer_window_height, panels=gui_panels)
 
 def component_selector_callback(s, component):
     selected_component_dropdown = component
@@ -114,7 +128,8 @@ active_component = None
 selected_parent = None
 selected_component_dropdown = None
 
-theme = themes()
+theme = Themes()
+timer = RepeatedTimer()
 
 ##########################################################
 ## GUI VARIABLES ##
@@ -144,8 +159,9 @@ def start_designer_window():
     # Designer Panel
     dpg.add_button(label="Add Panel", tag="add_panel_button", parent="control_panel_designer_tab", callback=add_panel_callback)
     dpg.add_separator(parent="control_panel_designer_tab")
-    dpg.add_text("Selected Window : " +  "None", color=theme.dark_green, parent="control_panel_designer_tab")
+    dpg.add_text("Selected Panel : None", tag="selected_panel_text", color=theme.dark_green, parent="control_panel_designer_tab")
     dpg.add_combo(items=gui_components_list, tag="component_selector", parent="control_panel_designer_tab", callback=component_selector_callback)
+
 
 # DPG GUI
 dpg.create_context()
