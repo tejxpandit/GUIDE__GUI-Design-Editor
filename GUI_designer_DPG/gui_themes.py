@@ -15,7 +15,7 @@ class Themes:
         self.black = (0,0,0)
         self.dark_green = (7,30,34)
         self.dark_grey = (100,100,100)
-        
+         
         # MEDIUM COLORS
         self.med_grey = (180,180,180)
 

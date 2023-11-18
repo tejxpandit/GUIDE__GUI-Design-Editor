@@ -32,6 +32,7 @@ new_panel_position = (0, 0)
 
 # Handles Safe Exits
 def exit_callback():
+    collect_panel_data()
     save_data("backup_")
     print("Safe Exit")
 
@@ -41,7 +42,6 @@ def save_data(ext=""):
     gui_all.append(gui_panels)
     gui_all.append(gui_components)
     pickle.dump(gui_all, open(ext + save_filename, 'wb'))
-        
 
 # Load Saved GUI Components
 def load_data():
@@ -82,6 +82,19 @@ def identify_active_window():
     if window_key in gui_panels:
         active_panel = window_key
         dpg.set_value("selected_panel_text", "Selected Panel : " + str(gui_panels.get(active_panel).label))
+
+# Collect Window Data to Save
+def collect_panel_data():
+    for panel_tag, panel in gui_panels.items():
+        panel.position = dpg.get_item_pos(panel_tag)
+        panel.width = dpg.get_item_width(panel_tag)
+        panel.height = dpg.get_item_height(panel_tag)
+
+# Restore Saved Panels
+def restore_panels():
+    for panel_tag, panel in gui_panels.items():
+        panel.restore()
+
 ##########################################################
 ## COMPONENT CALLBACKS ##
 
@@ -93,6 +106,7 @@ def new_gui_project_button_callback():
 def restore_gui_project_button_callback():
     delete_new_project_window()
     load_data()
+    restore_panels()
     start_designer_window()
 
 def restore_gui_file_dropdown(s, file):

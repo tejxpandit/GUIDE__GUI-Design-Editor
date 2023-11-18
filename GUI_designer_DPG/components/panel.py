@@ -55,9 +55,19 @@ class Panel:
         dpg.set_item_label(self.tag, self.label)
         #dpg.bind_item_theme(item=self.tag, theme=self.theme)
         self.panels.update({self.tag : self})
+
+    def restore(self):
+        #self.set_theme()
+        dpg.add_window(label=self.label, tag=self.tag, on_close=self.remove, pos=self.position, width=self.width, height=self.height)
+        #dpg.bind_item_theme(item=self.tag, theme=self.theme)
     
     def remove(self):
         self.panels.pop(self.tag)
         dpg.delete_item(self.tag)
         # if dpg.does_alias_exist(self.tag):
         #     dpg.remove_alias(self.tag)
+
+    def editor_panel(self, editor):
+        # Name
+        # dpg.add_text()
+        pass
