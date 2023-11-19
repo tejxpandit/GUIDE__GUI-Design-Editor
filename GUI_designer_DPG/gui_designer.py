@@ -10,6 +10,7 @@ import dearpygui.dearpygui as dpg
 from utils.RepeatedTimer import RepeatedTimer
 
 from gui_themes import Themes
+from components.components import Components
 from components.viewport import Viewport
 from components.panel import Panel
 from components.button import Button

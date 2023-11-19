@@ -5,19 +5,16 @@
 
 import dearpygui.dearpygui as dpg
 
-from gui_themes import Themes
-from components.viewport import Viewport
-from components.panel import Panel
-from components.button import Button
+from viewport import Viewport
+from panel import Panel
+from button import Button
 
 class Components:
     def __init__(self):
-        self.type = None
         self.component = None
-        self.parameter = None
         self.editor_panel = None
 
-        self.component_types = ["Panel", "Tab Group", "New Tab", "Group", "Button", "Slider", "Integer Input", "Float Input", "Dropdown Menu", "Checkbox", "Table"]
+        self.component_types = ["Panel", "Tab Group", "New Tab", "Group", "Button", "Slider", "Input (Integer)", "Input (Float)", "Dropdown Menu", "Checkbox", "Table"]
         
         self.parameter_reference = dict()
         self.color_reference = dict()
@@ -33,6 +30,7 @@ class Components:
         self.initialize_component_colors()
         self.initialize_component_styles()
 
+    # COMPONENT FIELDS
     def initialize_component_params(self):
         self.component_params.update({"Panel" : ["label", "position", "width", "height"]})
         self.component_params.update({"Button" : ["label", "parent", "callback", "width", "height"]})
@@ -45,9 +43,10 @@ class Components:
         self.component_params.update({"Panel" : []})
         self.component_params.update({"Button" : ["frame rounding"]})
 
+    # COMPONENT TYPES
     def initialize_parameter_reference(self):
         self.parameter_reference.update({"label" : "string"})
-        self.parameter_reference.update({"position" : "tuple2"})
+        self.parameter_reference.update({"position" : "int2"})
         self.parameter_reference.update({"width" : "int"})
         self.parameter_reference.update({"height" : "int"})
         self.parameter_reference.update({"max" : "float"})
@@ -75,9 +74,30 @@ class Components:
     def initialize_style_reference(self):
         self.style_reference.update({"frame rounding" : dpg.mvStyleVar_FrameRounding})
 
-    def editor_change_parameter_callback(self, value):
-        setattr(self.component, self.parameter, value)
+    # COMPONENT EDITOR CALLBACKS
+    def editor_change_parameter_callback(self, sender, value, parameter):
+        setattr(self.component, parameter, value) # parameter is user_data (string) passed from editor component. 
 
+    # COMPONENT TYPE BUILDERS
     def build_editor_int_component(self, name):
         dpg.add_text(name + " :", parent=self.editor_panel)
-        dpg.add_input_int(parent=self.editor_panel, callback=self.editor_change_parameter_callback)
+        dpg.add_input_int(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=name)
+
+    def build_editor_float_component(self, name):
+        dpg.add_text(name + " :", parent=self.editor_panel)
+        dpg.add_input_float(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=name)
+
+    def build_editor_string_component(self, name):
+        dpg.add_text(name + " :", parent=self.editor_panel)
+        dpg.add_input_text(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=name)
+
+    def build_editor_int2_component(self, name):
+        dpg.add_text(name + " :", parent=self.editor_panel)
+        dpg.add_input_intx(parent=self.editor_panel, size=2, callback=self.editor_change_parameter_callback, user_data=name)
+    
+    def build_editor_bool_component(self, name):
+        dpg.add_text(name + " :", parent=self.editor_panel)
+        dpg.add_checkbox(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=name)
+
+    # COMPONENT BUILD PARSER
+        # TODO : Build Editor for all parameters of a selected component. 
