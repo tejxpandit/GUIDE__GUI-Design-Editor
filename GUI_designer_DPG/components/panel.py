@@ -66,8 +66,3 @@ class Panel:
         dpg.delete_item(self.tag)
         # if dpg.does_alias_exist(self.tag):
         #     dpg.remove_alias(self.tag)
-
-    def editor_panel(self, editor):
-        # Name
-        # dpg.add_text()
-        pass
