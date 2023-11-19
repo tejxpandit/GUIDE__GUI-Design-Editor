@@ -39,7 +39,7 @@ class Panel:
         self.position = pos
         self.width = w
         self.height = h
-
+        
     def set_theme(self):
         with self.theme:
             with dpg.add_theme_component(dpg.mvAll):
@@ -63,6 +63,7 @@ class Panel:
     
     def remove(self):
         self.panels.pop(self.tag)
+        dpg.get_item_children
         dpg.delete_item(self.tag)
         # if dpg.does_alias_exist(self.tag):
         #     dpg.remove_alias(self.tag)
