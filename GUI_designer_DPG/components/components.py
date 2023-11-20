@@ -138,8 +138,15 @@ class Components:
             self.panels.update({panel.tag : panel})
             self.add_editor_component(panel.classname)
             self.component = panel
+        # TODO : Add other components
         self.add_editor_component_update_button()
 
     # ADD COMPONENT UPDATE BUTTON
     def add_editor_component_update_button(self):
         dpg.add_button(label="UPDATE", parent=self.editor_panel, callback=self.component.update)
+
+    # ADD COMPONENT DELETE BUTTON
+    def add_editor_component_delete_button(self):
+        dpg.add_button(label="DELETE", parent=self.editor_panel, callback=self.component.delete)
+
+    # TODO : Add component callback for setting active component in editor. 

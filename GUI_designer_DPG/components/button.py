@@ -5,6 +5,8 @@
 
 import dearpygui.dearpygui as dpg
 
+# TODO : UPDATE Button Class to match Panel Class style
+
 class Button:
     def __init__(self, name, parent, callback, components, width=0, height=0):
 
