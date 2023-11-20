@@ -5,12 +5,17 @@
 
 import dearpygui.dearpygui as dpg
 
+default_pos = (0,0)
+default_width = 100
+default_height = 100
+
 class Panel:
-    def __init__(self, pos, width, height, panels):
+    def __init__(self, pos=default_pos, width=default_width, height=default_height):
 
         # Identifiers
+        self.classname = "Panel"
         self.tag = dpg.generate_uuid()
-        self.label = "Panel " + str(self.tag)
+        self.label = self.classname + " " + str(self.tag)
 
         # Parameters
         self.position = pos
@@ -27,16 +32,18 @@ class Panel:
         self.add()
 
     def add(self):
-        #self.set_theme()
-        dpg.add_window(label=self.label, tag=self.tag, on_close=self.remove)
-        #dpg.bind_item_theme(item=self.tag, theme=self.theme)
-        self.panels.update({self.tag : self})
+        dpg.add_window(label=self.label, tag=self.tag)
 
-    def restore(self):
-        #self.set_theme()
-        dpg.add_window(label=self.label, tag=self.tag, on_close=self.remove, pos=self.position, width=self.width, height=self.height)
-        #dpg.bind_item_theme(item=self.tag, theme=self.theme)
-    
-    def remove(self):
-        self.panels.pop(self.tag)
+    def update(self):
+        print(dpg.get_item_children(self.tag))
         dpg.delete_item(self.tag)
+        dpg.add_window(label=self.label, tag=self.tag, width=self.width, height=self.height, pos=self.position)
+
+    # def restore(self):
+    #     #self.set_theme()
+    #     dpg.add_window(label=self.label, tag=self.tag, on_close=self.remove, pos=self.position, width=self.width, height=self.height)
+    #     #dpg.bind_item_theme(item=self.tag, theme=self.theme)
+    
+    # def remove(self):
+    #     self.panels.pop(self.tag)
+    #     dpg.delete_item(self.tag)

@@ -5,24 +5,24 @@
 
 import dearpygui.dearpygui as dpg
 
-from viewport import Viewport
-from panel import Panel
-from button import Button
+from gui_themes import Themes
+
+from .panel import Panel
+from .button import Button
 
 class Components:
     def __init__(self):
-        self.component = None
+        # GLOBAL VARIABLES
+        self.panels = None
+        self.components = None
+        self.component = None # self.component = current component
         self.editor_panel = None
+        self.colors = Themes()
 
+        # COMPONENT LIST
         self.component_types = ["Panel", "Tab Group", "New Tab", "Group", "Button", "Slider", "Input (Integer)", "Input (Float)", "Dropdown Menu", "Checkbox", "Table"]
-        
-        self.parameter_reference = dict()
-        self.color_reference = dict()
-        self.style_reference = dict()
-        self.initialize_parameter_reference()
-        self.initialize_color_reference()
-        self.initialize_style_reference()
 
+        # COMPONENT PARAMETER / COLOR / STYLE LISTS
         self.component_params = dict()
         self.component_colors = dict()
         self.component_styles = dict()
@@ -30,18 +30,26 @@ class Components:
         self.initialize_component_colors()
         self.initialize_component_styles()
 
+        # COMPONENT PARAMETER / COLOR / STYLE TYPE REFERENCE LISTS
+        self.parameter_reference = dict()
+        self.color_reference = dict()
+        self.style_reference = dict()
+        self.initialize_parameter_reference()
+        self.initialize_color_reference()
+        self.initialize_style_reference()
+
     # COMPONENT FIELDS
     def initialize_component_params(self):
         self.component_params.update({"Panel" : ["label", "position", "width", "height"]})
         self.component_params.update({"Button" : ["label", "parent", "callback", "width", "height"]})
 
     def initialize_component_colors(self):
-        self.component_params.update({"Panel" : ["title background", "title background active", "window background", "text color"]})
-        self.component_params.update({"Button" : ["button color", "button hovered color", "button active color", "text color"]})
+        self.component_colors.update({"Panel" : ["title background", "title background active", "window background", "text color"]})
+        self.component_colors.update({"Button" : ["button color", "button hovered color", "button active color", "text color"]})
 
     def initialize_component_styles(self):
-        self.component_params.update({"Panel" : []})
-        self.component_params.update({"Button" : ["frame rounding"]})
+        self.component_styles.update({"Panel" : []})
+        self.component_styles.update({"Button" : ["frame rounding"]})
 
     # COMPONENT TYPES
     def initialize_parameter_reference(self):
@@ -76,28 +84,62 @@ class Components:
 
     # COMPONENT EDITOR CALLBACKS
     def editor_change_parameter_callback(self, sender, value, parameter):
-        setattr(self.component, parameter, value) # parameter is user_data (string) passed from editor component. 
+        setattr(self.component, parameter, value) # parameter is user_data (string) passed from editor component.
 
-    # COMPONENT TYPE BUILDERS
-    def build_editor_int_component(self, name):
-        dpg.add_text(name + " :", parent=self.editor_panel)
-        dpg.add_input_int(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=name)
+    # COMPONENT EDITOR TYPE BUILDERS
+    def build_editor_int_component(self, parameter):
+        dpg.add_text(parameter + " :", color=self.colors.dark_green, parent=self.editor_panel)
+        dpg.add_input_int(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=parameter)
 
-    def build_editor_float_component(self, name):
-        dpg.add_text(name + " :", parent=self.editor_panel)
-        dpg.add_input_float(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=name)
+    def build_editor_float_component(self, parameter):
+        dpg.add_text(parameter + " :", color=self.colors.dark_green, parent=self.editor_panel)
+        dpg.add_input_float(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=parameter)
 
-    def build_editor_string_component(self, name):
-        dpg.add_text(name + " :", parent=self.editor_panel)
-        dpg.add_input_text(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=name)
+    def build_editor_string_component(self, parameter):
+        dpg.add_text(parameter + " :", color=self.colors.dark_green, parent=self.editor_panel)
+        dpg.add_input_text(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=parameter)
 
-    def build_editor_int2_component(self, name):
-        dpg.add_text(name + " :", parent=self.editor_panel)
-        dpg.add_input_intx(parent=self.editor_panel, size=2, callback=self.editor_change_parameter_callback, user_data=name)
+    def build_editor_int2_component(self, parameter):
+        dpg.add_text(parameter + " :", color=self.colors.dark_green, parent=self.editor_panel)
+        dpg.add_input_intx(parent=self.editor_panel, size=2, callback=self.editor_change_parameter_callback, user_data=parameter)
     
-    def build_editor_bool_component(self, name):
-        dpg.add_text(name + " :", parent=self.editor_panel)
-        dpg.add_checkbox(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=name)
+    def build_editor_bool_component(self, parameter):
+        dpg.add_text(parameter + " :", color=self.colors.dark_green, parent=self.editor_panel)
+        dpg.add_checkbox(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=parameter)
 
-    # COMPONENT BUILD PARSER
-        # TODO : Build Editor for all parameters of a selected component. 
+    # COMPONENT EDITOR BUILD PARSER
+    def add_editor_component_parameter_type(self, parameter, type):
+        if type == "int":
+            self.build_editor_int_component(parameter)
+        elif type == "float":
+            self.build_editor_float_component(parameter)
+        elif type == "string":
+            self.build_editor_string_component(parameter)
+        elif type == "bool":
+            self.build_editor_bool_component(parameter)
+        elif type == "int2":
+            self.build_editor_int2_component(parameter)
+
+    def add_editor_component_parameter(self, parameter):
+        type = self.parameter_reference.get(parameter)
+        self.add_editor_component_parameter_type(parameter, type)
+    
+    # COMPONENT EDITOR BUILDER
+    def add_editor_component(self, component):
+        params = self.component_params.get(component)
+        for param in params:
+            self.add_editor_component_parameter(param)
+
+    # COMPONENT BUILDER
+    def add_component(self, component): # component is a "string" here
+        dpg.delete_item(item=self.editor_panel, children_only=True)
+        if component == "Panel":
+            panel = Panel()
+            self.panels.update({panel.tag : panel})
+            self.add_editor_component(panel.classname)
+            self.component = panel
+        self.add_editor_component_update_button()
+
+    # ADD COMPONENT UPDATE BUTTON
+    def add_editor_component_update_button(self):
+        dpg.add_button(label="UPDATE", parent=self.editor_panel, callback=self.component.update)

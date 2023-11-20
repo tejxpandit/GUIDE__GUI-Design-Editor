@@ -115,15 +115,11 @@ def restore_gui_file_dropdown(s, file):
     save_filename = file
 
 def add_panel_callback():
-    Panel(name="panel ", pos=new_panel_position, width=designer_window_width, height=designer_window_height, panels=gui_panels)
+    components.add_component("Panel")
 
 def component_selector_callback(s, component):
     selected_component_dropdown = component
     print(selected_component_dropdown)
-
-def add_component_callback():
-    # add_component(selected_component_dropdown, selected_parent)
-    pass
 
 ##########################################################
 ## GUI DATA ##
@@ -145,6 +141,11 @@ selected_component_dropdown = None
 
 theme = Themes()
 timer = RepeatedTimer()
+components = Components()
+
+components.panels = gui_panels
+components.components = gui_components
+components.editor_panel = "control_panel_editor_tab"
 
 ##########################################################
 ## GUI VARIABLES ##
