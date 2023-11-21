@@ -15,12 +15,21 @@ class Components:
         # GLOBAL VARIABLES
         self.panels = None
         self.components = None
-        self.component = None # self.component = current active component
         self.editor_panel = None
         self.colors = Themes()
 
+        # CURRENT ACTIVE COMPONENT
+        self.component = None
+        self.tag = None
+        self.label = None
+        self.parent = None
+        self.children = None
+
+        self.selected_parent = None
+        self.selected_panel = None
+
         # COMPONENT LIST
-        self.component_types = ["Panel", "Tab Group", "New Tab", "Group", "Button", "Slider", "Input (Integer)", "Input (Float)", "Dropdown Menu", "Checkbox", "Table"]
+        self.component_types = dict()
 
         # COMPONENT PARAMETER / COLOR / STYLE LISTS
         self.component_params = dict()
@@ -37,6 +46,19 @@ class Components:
         self.initialize_parameter_reference()
         self.initialize_color_reference()
         self.initialize_style_reference()
+
+    # COMPONENT TYPES
+    def initialize_component_types(self):
+        self.component_types.update({"Panel" : "panel"})
+        self.component_types.update({"Tab Group" : "tab_group"})
+        self.component_types.update({"New Tab" : "new_tab"})
+        self.component_types.update({"Group" : "group"})
+        self.component_types.update({"Button" : "button"})
+        self.component_types.update({"Input (Integer)" : "input_int"})
+        self.component_types.update({"Input (Float)" : "input_float"})
+        self.component_types.update({"Dropdown Menu" : "dropdown"})
+        self.component_types.update({"Checkbox" : "checkbox"})
+        self.component_types.update({"table" : "table"})
 
     # COMPONENT FIELDS
     def initialize_component_params(self):
@@ -138,30 +160,74 @@ class Components:
 
     # ADD COMPONENT UPDATE BUTTON
     def add_editor_component_update_button(self):
-        dpg.add_button(label="UPDATE", parent=self.editor_panel, callback=self.component.update)
+        dpg.add_button(label="UPDATE", parent=self.editor_panel, callback=self.update_component, user_data=self.component.tag)
 
     # ADD COMPONENT DELETE BUTTON
     def add_editor_component_delete_button(self):
-        dpg.add_button(label="DELETE", parent=self.editor_panel, callback=self.component.delete)
-
-    # COMPONENT BUILDER
-    def add_component(self, component): # component is a "string" here
-        if component == "Panel":
-            # Create Component Object
-            panel = Panel()
-            # Add Component to Components Dict with Tag as Key
-            self.panels.update({panel.tag : panel})
-            # Set Component as Active Component
-            self.component = panel
-            # Add Component to Editor Panel (along with all parameters)
-            self.add_editor_component(panel.classname)
-            
-        # TODO : Add other components
-        
+        dpg.add_button(label="DELETE", parent=self.editor_panel, callback=self.delete_component, user_data=self.component.tag)        
 
     # COMPONENT CALLBACK : SET ACTIVE COMPONENT FOR EDITOR
     def set_active_component_callback(self, sender, value):
         # Set Component as Active Component
         self.component = self.components.get(sender)
+        self.tag = self.component.tag
+        self.label = self.component.label
+        self.classname = self.component.classname
+        self.parent = self.component.parent
+        self.children = self.component.children
         # Add Component to Editor Panel (along with all parameters)
-        self.add_editor_component(self.component.classname)
+        self.add_editor_component(self.classname)
+
+    # PANEL BUILDER
+    def add_panel(self, panel):
+        # Add Component to Components Dict with Tag as Key
+        self.panels.update({panel.tag : panel})
+        # Set Component as Active Component and Add Component to Editor Panel
+        self.set_active_component_callback(self, panel.tag)
+
+    # COMPONENT PARSER and BUILDER
+    def add_component(self, component): # component is a "string" here = component.classname
+        if component == "panel":
+            # Create Component Object
+            p = Panel()
+            # Add Panel
+            self.add_panel(p)
+        else:
+            if component == "button":
+                c = Button()
+            
+            # Add Component to Components Dict with Tag as Key
+            self.components.update({c.tag : c})
+            # Set Component as Active Component and Add Component to Editor Panel
+            self.set_active_component_callback(self, c.tag)
+            
+        # TODO : Add other components
+
+    def update_component(self, sender, value, component):
+        # RECURSIVE DELETION OF CHILDREN IS AUTOMATIC IN DPG!
+        # and we dont want to actually delete the components (like in self.delete_component)
+        if not (self.component.parent == None):
+            # TODO : Implement recursive update of children, when parent is updated
+            # Actually, if you implement a immidiate child update function, where an "update function" is called in the immidiate children, and if this update function is in all children, then all children will be automatically updated recursively anyways!
+            # TODO : The update needs to actually delete and re-add the parent, because if the child is removed and added, the order of components will change. The entire structure need to be readded in order
+            dpg.delete_item(self.component.parent)
+            self.component.add()
+
+    def delete_component(self, sender, value, component): # component here is the component.tag
+        if dpg.does_item_exist(component):
+            dpg.delete_item(component) 
+        if component in self.components:
+            pass
+        self.components.pop(component)
+
+        if dpg.does_item_exist(component):
+            # Get All Children
+            children = dpg.get_item_children(component, 1)
+            for child in children:
+                    # Recursive Deletion of Children
+                    self.delete_component(0, 0, child)
+            # RECURSIVE DELETION OF CHILDREN IS AUTOMATIC IN DPG! 
+            # so manually deleting children from dpg might be pointless.
+            dpg.delete_item(component) 
+            # Deletion of Item from Component Dict (after deleting all children)
+            
