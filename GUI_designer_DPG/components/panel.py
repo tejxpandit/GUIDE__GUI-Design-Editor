@@ -47,4 +47,4 @@ class Panel:
     def delete(self):
         dpg.delete_item(self.tag)
         # RECURSIVE DELETION OF CHILDREN IS AUTOMATIC IN DPG!
-        # TODO : Recursive Deletion of Children from Component Lists
+        # TODO : Recursive Deletion of Children from Component Dict

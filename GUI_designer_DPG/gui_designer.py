@@ -78,7 +78,7 @@ def start_window_polling_timer():
 
 # Window Identification Function
 def identify_active_window():
-    global active_panel
+    global active_panel, components
     window_key = dpg.get_active_window()
     if window_key in gui_panels:
         active_panel = window_key

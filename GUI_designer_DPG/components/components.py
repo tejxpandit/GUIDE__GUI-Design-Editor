@@ -15,7 +15,7 @@ class Components:
         # GLOBAL VARIABLES
         self.panels = None
         self.components = None
-        self.component = None # self.component = current component
+        self.component = None # self.component = current active component
         self.editor_panel = None
         self.colors = Themes()
 
@@ -107,7 +107,7 @@ class Components:
         dpg.add_text(parameter + " :", color=self.colors.dark_green, parent=self.editor_panel)
         dpg.add_checkbox(parent=self.editor_panel, callback=self.editor_change_parameter_callback, user_data=parameter)
 
-    # COMPONENT EDITOR BUILD PARSER
+    # COMPONENT EDITOR BUILD PARAMETER PARSER
     def add_editor_component_parameter_type(self, parameter, type):
         if type == "int":
             self.build_editor_int_component(parameter)
@@ -124,22 +124,17 @@ class Components:
         type = self.parameter_reference.get(parameter)
         self.add_editor_component_parameter_type(parameter, type)
     
-    # COMPONENT EDITOR BUILDER
+    # COMPONENT EDITOR PARAMETER BUILDER
     def add_editor_component(self, component):
+        # Clear Editor Panel
+        dpg.delete_item(item=self.editor_panel, children_only=True)
+        # Get and add all Component Parameters
         params = self.component_params.get(component)
         for param in params:
             self.add_editor_component_parameter(param)
-
-    # COMPONENT BUILDER
-    def add_component(self, component): # component is a "string" here
-        dpg.delete_item(item=self.editor_panel, children_only=True)
-        if component == "Panel":
-            panel = Panel()
-            self.panels.update({panel.tag : panel})
-            self.add_editor_component(panel.classname)
-            self.component = panel
-        # TODO : Add other components
+        # Add Update and Delete Buttons
         self.add_editor_component_update_button()
+        self.add_editor_component_delete_button()
 
     # ADD COMPONENT UPDATE BUTTON
     def add_editor_component_update_button(self):
@@ -149,4 +144,24 @@ class Components:
     def add_editor_component_delete_button(self):
         dpg.add_button(label="DELETE", parent=self.editor_panel, callback=self.component.delete)
 
-    # TODO : Add component callback for setting active component in editor. 
+    # COMPONENT BUILDER
+    def add_component(self, component): # component is a "string" here
+        if component == "Panel":
+            # Create Component Object
+            panel = Panel()
+            # Add Component to Components Dict with Tag as Key
+            self.panels.update({panel.tag : panel})
+            # Set Component as Active Component
+            self.component = panel
+            # Add Component to Editor Panel (along with all parameters)
+            self.add_editor_component(panel.classname)
+            
+        # TODO : Add other components
+        
+
+    # COMPONENT CALLBACK : SET ACTIVE COMPONENT FOR EDITOR
+    def set_active_component_callback(self, sender, value):
+        # Set Component as Active Component
+        self.component = self.components.get(sender)
+        # Add Component to Editor Panel (along with all parameters)
+        self.add_editor_component(self.component.classname)
