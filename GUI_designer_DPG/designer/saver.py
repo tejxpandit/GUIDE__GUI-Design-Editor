@@ -40,6 +40,6 @@ class Saver:
 
     # Handles Safe Exits
     def exit_callback(self):
-        # collect_panel_data()
+        self.collect_panel_data()
         self.save_data("backup_")
         print("Safe Exit")

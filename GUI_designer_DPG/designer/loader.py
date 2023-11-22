@@ -28,8 +28,8 @@ class Loader:
             with open(self.save_filename, 'rb') as file: 
                 gui_all = pickle.load(file)
                 self.viewport = gui_all[0]
-                self.panels = gui_all[1]
-                self.components = gui_all[2]
+                self.panels.update(gui_all[1])
+                self.components.update(gui_all[2])
                 print("Loaded : " + self.save_filename)
         else:
             print("No such data file")

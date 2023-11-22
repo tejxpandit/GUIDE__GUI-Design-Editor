@@ -22,3 +22,6 @@ for key, value in d.items():
 if key in d:
     # do something with key or value
     pass
+
+# Update/Modify Dictionary Value
+d["name"] = "banana"

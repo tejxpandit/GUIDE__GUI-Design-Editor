@@ -50,7 +50,8 @@ class Designer:
         self.selected_component_dropdown = component
 
     def add_component_callback(self):
-        self.component_manager.add_component(self.component_manager.component_types.get(self.selected_component_dropdown))
+        if self.selected_component_dropdown != None:
+            self.component_manager.add_component(self.component_manager.component_types.get(self.selected_component_dropdown))
 
     ##########################################################
     ## SYSTEM FUNCTIONS ##

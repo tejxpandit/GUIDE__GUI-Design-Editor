@@ -20,7 +20,7 @@ class NewProject:
         self.viewport = None
         self.panels = None
         self.components = None
-        self.save_filename = None
+        self.current_window_key = None
 
         # Objects
         self.timer = RepeatedTimer()
@@ -57,7 +57,7 @@ class NewProject:
         self.start_window_polling_timer()
 
     def restore_gui_file_dropdown(self, s, file):
-        self.save_filename = file
+        self.loader.save_filename = file
 
     ##########################################################
     ## SYSTEM FUNCTIONS ##
@@ -75,14 +75,19 @@ class NewProject:
     def identify_active_window(self):
         window_key = dpg.get_active_window()
         if window_key in self.panels:
-            self.component_manager.selected_panel = window_key
-            dpg.set_value("selected_panel_text", "Selected Panel : " + str(self.panels.get(window_key).label))
+            if window_key != self.current_window_key:
+                self.current_window_key = window_key
+                self.component_manager.selected_panel = window_key
+                self.component_manager.selected_parent = window_key
+                self.component_manager.set_active_panel_callback(window_key, 0)
+                dpg.set_value("selected_panel_text", "Selected Panel : " + str(self.panels.get(window_key).label))
 
     # Restore Saved Panels
     def restore_panels(self):
-        # for panel_tag, panel in gui_panels.items():
-        #     panel.restore()
-        pass
+        for panel_tag, panel in self.panels.items():
+            print(panel_tag)
+        for panel_tag, panel in self.panels.items():
+            self.component_manager.restore_panel(panel_tag)
     
     ##########################################################
     ## GUI SYSTEM ##
