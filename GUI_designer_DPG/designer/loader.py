@@ -40,4 +40,4 @@ class Loader:
         for filename in os.listdir(os.getcwd()):
             if filename.endswith(".pkl"):
                 self.data_files_list.append(filename)
-        print(self.data_files_list)
+        # print(self.data_files_list)

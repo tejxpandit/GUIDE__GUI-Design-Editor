@@ -59,7 +59,7 @@ class Designer:
     def initialize_gui_components_list(self):
         for c, v in self.component_manager.component_types.items():
             self.components_list.append(c)
-        print(self.components_list)
+        # print(self.components_list)
     
     ##########################################################
     ## GUI SYSTEM ##
