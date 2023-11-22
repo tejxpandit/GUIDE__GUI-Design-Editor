@@ -3,75 +3,64 @@
 # Author : Tej Pandit
 # Date : Nov, 2023
 
-import os
-import pickle
 import dearpygui.dearpygui as dpg
 
-from utils.RepeatedTimer import RepeatedTimer
-
+from designer.new_project import NewProject
 from designer.designer import Designer
 from designer.loader import Loader
 from designer.saver import Saver
 
-from gui_themes import Themes
-from components.components import Components
 from components.viewport import Viewport
-
+from components.component_manager import ComponentManager
 
 ##########################################################
 ## PARAMETERS ##
 
-viewport_width = 1000
-viewport_height = 600
-
-new_panel_position = (0, 0)
-
 ##########################################################
 ## SYSTEM FUNCTIONS ##
-
-# Handles Safe Exits
-def exit_callback():
-    collect_panel_data()
-    save_data("backup_")
-    print("Safe Exit")
 
 ##########################################################
 ## GUI DATA ##
 
-gui_all = []
-gui_viewport = Viewport()
-gui_panels = dict()
-gui_components = dict()
+viewport = Viewport()
+panels = dict()
+components = dict()
 
 ##########################################################
-## GUI COMPONENTS ##
+## GUI OBJECTS ##
 
-designer = Designer()
 loader = Loader()
 saver = Saver()
+viewport = Viewport()
+new_project = NewProject()
+designer = Designer()
+component_manager = ComponentManager()
 
-theme = Themes()
-components = Components()
-
-components.panels = gui_panels
-components.components = gui_components
-components.editor_panel = "control_panel_editor_tab"
+# Initialize GUI Objects
+loader.initialize(viewport, panels, components)
+saver.initialize(viewport, panels, components)
+new_project.initialize(viewport, panels, components, loader, designer, component_manager)
+designer.initialize(viewport, panels, components, saver, component_manager)
+component_manager.initialize(viewport, panels, components)
+component_manager.editor_panel = designer.editor_panel
 
 ##########################################################
 ## GUI SYSTEM ##
 
 # DPG GUI
 dpg.create_context()
-dpg.create_viewport(title="GUI Designer DPG", width=viewport_width, height=viewport_height, clear_color=theme.dark_green)
+viewport.add()
 dpg.setup_dearpygui()
 
-# Create Designer Window
-designer.new_project_window()
+# Create New Project Window
+new_project.new_project_window()
 
 # Set Safe Exit
-dpg.set_exit_callback(exit_callback)
+dpg.set_exit_callback(saver.exit_callback)
 
 # DPG GUI Start and Cleanup
 dpg.show_viewport()
 dpg.start_dearpygui()
 dpg.destroy_context()
+
+##########################################################

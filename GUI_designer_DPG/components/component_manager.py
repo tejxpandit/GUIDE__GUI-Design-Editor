@@ -1,4 +1,4 @@
-# Title : GUI Designer : Components Class
+# Title : GUI Designer : Component Manager Class
 # Project : GUI Designer DearPyGUI
 # Author : Tej Pandit
 # Date : Nov, 2023
@@ -10,13 +10,13 @@ from gui_themes import Themes
 from .panel import Panel
 from .button import Button
 
-class Components:
+class ComponentManager:
     def __init__(self):
         # GLOBAL VARIABLES
+        self.viewport = None
         self.panels = None
         self.components = None
         self.editor_panel = None
-        self.colors = Themes()
 
         # CURRENT ACTIVE COMPONENT
         self.component = None
@@ -28,8 +28,11 @@ class Components:
         self.selected_parent = None
         self.selected_panel = None
 
+        # OBJECTS
+
         # COMPONENT LIST
         self.component_types = dict()
+        self.initialize_component_types()
 
         # COMPONENT PARAMETER / COLOR / STYLE LISTS
         self.component_params = dict()
@@ -46,6 +49,12 @@ class Components:
         self.initialize_parameter_reference()
         self.initialize_color_reference()
         self.initialize_style_reference()
+
+    # Initialize Designer Parameters
+    def initialize(self, viewport, panels, components):
+        self.viewport = viewport
+        self.panels = panels
+        self.components = components
 
     # COMPONENT TYPES
     def initialize_component_types(self):
@@ -178,12 +187,26 @@ class Components:
         # Add Component to Editor Panel (along with all parameters)
         self.add_editor_component(self.classname)
 
+    # SET ACTIVE PANEL FOR EDITOR
+    def set_active_panel_callback(self, sender, value):
+        # Set Panel as Active Component
+        self.component = self.panels.get(sender)
+        print(sender)
+        print(self.panels)
+        self.tag = self.component.tag
+        self.label = self.component.label
+        self.classname = self.component.classname
+        self.parent = self.component.parent
+        self.children = self.component.children
+        # Add Panel to Editor Panel (along with all parameters)
+        self.add_editor_component(self.classname)
+
     # PANEL BUILDER
     def add_panel(self, panel):
         # Add Component to Components Dict with Tag as Key
         self.panels.update({panel.tag : panel})
         # Set Component as Active Component and Add Component to Editor Panel
-        self.set_active_component_callback(self, panel.tag)
+        self.set_active_panel_callback(self, panel.tag)
 
     # COMPONENT PARSER and BUILDER
     def add_component(self, component): # component is a "string" here = component.classname
