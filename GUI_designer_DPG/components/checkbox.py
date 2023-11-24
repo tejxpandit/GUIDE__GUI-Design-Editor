@@ -1,4 +1,4 @@
-# Title : GUI Designer : Button Class
+# Title : GUI Designer : Checkbox Class
 # Project : GUI Designer DearPyGUI
 # Author : Tej Pandit
 # Date : Nov, 2023
@@ -8,19 +8,17 @@ import dearpygui.dearpygui as dpg
 default_width = 0
 default_height = 0
 
-class Button:
+class Checkbox:
     def __init__(self, parent, callback, width=default_width, height=default_height):
 
         # Identifiers
-        self.classname = "Button"
+        self.classname = "Checkbox"
         self.tag = dpg.generate_uuid()
         self.label = self.classname + " " + str(self.tag)
         self.parent = parent
         self.children = []
 
         # Parameters
-        self.width = width
-        self.height = height
 
         # Theme
         self.color_background = None
@@ -33,5 +31,5 @@ class Button:
         self.add()
 
     def add(self):
-        dpg.add_button(label=self.label, tag=self.tag, width=self.width, height=self.height, parent=self.parent, callback=self.callback)
+        dpg.add_checkbox(label=self.label, tag=self.tag, parent=self.parent, callback=self.callback)
     

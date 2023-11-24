@@ -10,6 +10,8 @@ from designer.designer_theme import DesignerTheme
 
 from .panel import Panel
 from .button import Button
+from .checkbox import Checkbox
+from .slider import Slider
 
 class ComponentManager:
     def __init__(self):
@@ -66,6 +68,7 @@ class ComponentManager:
         self.component_types.update({"Panel" : "panel"})
         self.component_types.update({"Button" : "button"})
         self.component_types.update({"Checkbox" : "checkbox"})
+        self.component_types.update({"Slider" : "slider"})
 
         # self.component_types.update({"Tab Group" : "tab_group"})
         # self.component_types.update({"New Tab" : "new_tab"})
@@ -80,6 +83,8 @@ class ComponentManager:
     def initialize_component_params(self):
         self.component_params.update({"Panel" : ["label", "position", "width", "height"]})
         self.component_params.update({"Button" : ["label", "callback", "width", "height"]})
+        self.component_params.update({"Checkbox" : ["label", "callback"]})
+        self.component_params.update({"Slider" : ["label", "callback", "width", "height", "max", "min"]})
 
     def initialize_component_colors(self):
         self.component_colors.update({"Panel" : ["title background", "title background active", "window background", "text color"]})
@@ -229,6 +234,10 @@ class ComponentManager:
         else:
             if component == "button":
                 c = Button(self.selected_parent, self.set_active_component_callback)
+            elif component == "checkbox":
+                c = Checkbox(self.selected_parent, self.set_active_component_callback)
+            elif component == "slider":
+                c = Slider(self.selected_parent, self.set_active_component_callback)
             
             # Add Component to Components Dict with Tag as Key
             self.components.update({c.tag : c})
@@ -254,8 +263,16 @@ class ComponentManager:
         for child in self.panels.get(panel).children:
             self.restore_component(child)
 
+    # GET MANUALLY POSITIONED AND RESIZED PANELS
+    def updated_panel_data(self, panel):
+        p = self.panels.get(panel)
+        p.position = dpg.get_item_pos(panel)
+        p.width = dpg.get_item_width(panel)
+        p.height = dpg.get_item_height(panel)
+
     def update_component(self, sender, value, component): # component here is the component.tag
         # RECURSIVE DELETION OF CHILDREN IS AUTOMATIC IN DPG!
+        self.updated_panel_data(self.selected_panel)
         dpg.delete_item(self.selected_panel)
         self.restore_panel(self.selected_panel)
 
@@ -296,5 +313,3 @@ class ComponentManager:
                 elif parent in self.panels:
                     self.panels.get(parent).children.remove(component)
                     self.set_active_panel_callback(parent, 0)
-        
-        print(self.components)

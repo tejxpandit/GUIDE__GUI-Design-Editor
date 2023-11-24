@@ -59,7 +59,7 @@ class DesignerTheme:
                 # Component Styling
                 dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 3, category=dpg.mvThemeCat_Core)
                 # # Font Colors
-                # dpg.add_theme_color(dpg.mvThemeCol_Text, theme.black, category=dpg.mvThemeCat_Core)
+                dpg.add_theme_color(dpg.mvThemeCol_Text, self.light_grey, category=dpg.mvThemeCat_Core)
             
         return designer_theme
     
