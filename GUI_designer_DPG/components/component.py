@@ -1,19 +1,15 @@
-# Title : GUI Designer : Panel Class
+# Title : GUI Designer : Component Class (Inheritance Parent for all Components)
 # Project : GUI Designer DearPyGUI
 # Author : Tej Pandit
 # Date : Nov, 2023
 
 import dearpygui.dearpygui as dpg
 
-default_pos = (0,0)
-default_width = 100
-default_height = 100
-
-class Panel:
-    def __init__(self, on_close_func, pos=default_pos, width=default_width, height=default_height):
+class Component:
+    def __init__(self, callback, parent):
 
         # Identifiers
-        self.classname = "Panel"
+        self.classname = "Component"
         self.tag = dpg.generate_uuid()
         self.label = self.classname + " " + str(self.tag)
         self.parent = None
@@ -27,12 +23,13 @@ class Panel:
         self.editor_panel = None
 
         # Parameters
-        self.position = pos
-        self.width = width
-        self.height = height
+        self.position = None
+        self.width = None
+        self.height = None
 
         # Functions
-        self.on_close = on_close_func
+        self.callback = None
+        self.edit_callback = None
 
         # Theme
         self.color_background = None
@@ -43,8 +40,15 @@ class Panel:
         # Initialize
         self.add()
 
+    def initialize(self, panels, components, component_manager, parent_panel, editor_panel):
+        self.panels = panels
+        self.components = components
+        self.component_manager = component_manager
+        self.parent_panel = parent_panel
+        self.editor_panel = editor_panel
+    
     def add(self):
-        dpg.add_window(label=self.label, tag=self.tag, width=self.width, height=self.height, pos=self.position, on_close=self.on_close, user_data=self.tag)
+        pass
 
     def restore(self):
         self.add()
@@ -61,25 +65,44 @@ class Panel:
         dpg.delete_item(self.parent_panel)
         self.restore(self.parent_panel)
 
-    def delete(self):
-        # Get All Children
+    def delete_parent_relation(self):
+        if self.parent != None:
+            if self.parent in self.panels:
+                self.panels.get(self.parent).children.remove(self.tag)
+                self.component_manager.set_active_panel_callback(self.parent, 0)
+            elif self.parent in self.components:
+                self.components.get(self.parent).children.remove(self.tag)
+                self.component_manager.set_active_component_callback(self.parent, 0)
+
+    def delete_child(self):
         for child in self.children:
-            # Recursive Deletion of Children
-            self.components.get(child).delete_child()
-        # Deletion of Panel from Panel Dict (after deleting all children)
-        self.panels.pop(self.tag)
-        for panel_tag, panel in self.panels.items():
-            self.set_active_panel_callback(panel_tag, 0)
-            return
+            self.components.get(child).delete()
+        self.components.pop(self.tag)
+
+    def delete(self):
+        self.delete_child()
+        self.delete_parent_relation()
     
     def editor_callback(self, sender, value, parameter_name):
         setattr(self, parameter_name, value)
 
-    def editor_controls(self):
-        dpg.delete_item(item=self.editor_panel, children_only=True)
-        # Get and add all Component Parameters
+    def editor_parameters(self):
+        pass
 
-        # TODO : Add all parameters from component manager
+    def editor_colors(self):
+        pass
+
+    def editor_styles(self):
+        pass
+
+    def editor_controls(self):
+        # Clear all previous editor controls
+        dpg.delete_item(item=self.editor_panel, children_only=True)
+
+        # Get and add all Component Parameters, Colors and Styles
+        self.editor_parameters()
+        self.editor_colors()
+        self.editor_styles()
 
         # Add Update and Delete Buttons
         dpg.add_button(label="UPDATE", parent=self.editor_panel, callback=self.update, user_data=self.tag)

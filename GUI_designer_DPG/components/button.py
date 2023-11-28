@@ -4,13 +4,15 @@
 # Date : Nov, 2023
 
 import dearpygui.dearpygui as dpg
+from .component import Component
 
 default_width = 0
 default_height = 0
 
-class Button:
+class Button(Component):
     def __init__(self, parent, callback, width=default_width, height=default_height):
-
+        super().__init__()
+        
         # Identifiers
         self.classname = "Button"
         self.tag = dpg.generate_uuid()
