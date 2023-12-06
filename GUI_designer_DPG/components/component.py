@@ -37,9 +37,6 @@ class Component:
         self.color_title_active = None
         self.color_text = None
 
-        # Initialize
-        self.add()
-
     def initialize(self, panels, components, component_manager, parent_panel, editor_panel):
         self.panels = panels
         self.components = components

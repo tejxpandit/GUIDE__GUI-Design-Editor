@@ -41,7 +41,7 @@ class Panel:
         self.color_text = None
 
         # Initialize
-        self.add()
+        # self.add()
 
     def add(self):
         dpg.add_window(label=self.label, tag=self.tag, width=self.width, height=self.height, pos=self.position, on_close=self.on_close, user_data=self.tag)

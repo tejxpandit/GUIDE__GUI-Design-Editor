@@ -198,9 +198,8 @@ class ComponentManager:
         self.children = self.component.children
 
         self.selected_parent = self.component.parent
-        print(self.selected_parent)
         # Add Component to Editor Panel (along with all parameters)
-        self.add_editor_component(self.classname)
+        # self.add_editor_component(self.classname)
 
     # SET ACTIVE PANEL FOR EDITOR
     def set_active_panel_callback(self, sender, value):
@@ -215,7 +214,7 @@ class ComponentManager:
         self.selected_panel = self.component.tag
         self.selected_parent = self.component.tag
         # Add Panel to Editor Panel (along with all parameters)
-        self.add_editor_component(self.classname)
+        # self.add_editor_component(self.classname)
 
     # PANEL BUILDER
     def add_panel(self, panel):
