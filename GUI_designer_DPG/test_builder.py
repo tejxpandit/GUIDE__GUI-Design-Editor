@@ -8,4 +8,3 @@ from GUI_builder import GUIBuilder
 G = GUIBuilder()
 
 G.run()
-
