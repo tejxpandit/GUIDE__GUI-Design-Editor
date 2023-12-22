@@ -5,19 +5,20 @@
 
 from components import panel
 from components import component
+import dearpygui as dpg
 
 # CENSUS
 # Make GUI Project Census Dictionary
 census = dict()
 
 # Component Numbering
-census.update({"window" : 0})
-census.update({"button" : 0})
-census.update({"slider" : 0})
+census.update({"Window" : 0})
+census.update({"Button" : 0})
+census.update({"Slider" : 0})
 
 # Add or Remove Component from Census
-census["window"] = census.get("window") + 1
-census["window"] = census.get("window") - 1
+census["Window"] = census.get("Window") + 1
+census["Window"] = census.get("Window") - 1
 
 #############################################
 
@@ -40,5 +41,14 @@ default_component_name = component.type + "_" + census.get(component.type)
 components.update({default_component_name : []})
 
 #############################################
+
+class Component:
+    def __init__(self):
+        # Identifiers
+        self.classname = "Component"
+        self.tag = dpg.generate_uuid()
+        self.label = self.classname + " " + str(self.tag)
+        self.parent = None
+        self.children = []
 
 # TODO : Finish template
