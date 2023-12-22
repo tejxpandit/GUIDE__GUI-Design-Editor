@@ -5,3 +5,10 @@
 
 import dearpygui as dpg
 
+class Designer:
+    def __init__(self):
+        # GUI Data
+        # Make GUI Project Window Dictionary
+        self.windows = dict()
+        # Make GUI Project Component List
+        self.components = []
