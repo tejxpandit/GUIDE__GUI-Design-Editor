@@ -12,3 +12,5 @@ class Designer:
         self.windows = dict()
         # Make GUI Project Component List
         self.components = []
+
+        
