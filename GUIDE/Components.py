@@ -18,5 +18,17 @@ class Components:
         self.Components()
         self.Attributes()
 
-
-c = Components()
+    def Components(self):
+            # Component Format
+            # comp_id : {
+            #     "name"          : "Display Name",
+            #     "data_type"     : "Data Type",
+            #     "function"      : "dpg add_function",
+            #     "children"      : [] or None
+            #     "attributes"    : {
+            #         "attr_1"        : ["attr_1_label", "attr_1_type", attr_1_default_value],
+            #         "attr_2"        : ["attr_2_label", "attr_2_type", attr_2_default_value],
+            #         ....
+            #     }
+            # }
+        pass
