@@ -1,7 +1,7 @@
 # Title : GUIDE Launcher
 # Project : GUI Designer DearPyGUI
 # Author : Tej Pandit
-# Date : 1 April 2024
+# Date : 3 April 2024
 
 import dearpygui.dearpygui as dpg
 from ProjectManager import ProjectManager
