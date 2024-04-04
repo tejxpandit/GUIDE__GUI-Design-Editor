@@ -72,5 +72,53 @@ class Components:
                     "show"          : ["Visible", "bool", True],
                     "enabled"       : ["Enabled", "bool", True]
                 }
+            },
+            # Slider (Int)
+            "slider_int" : {
+                "name"          : "Slider (Int)",
+                "data_type"     : "int",
+                "function"      : "add_slider_int",
+                "children"      : None,
+                "attributes"    : {
+                    "label"         : ["Label", "identifier", "Slider Int"],
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+                    "callback"      : ["Function", "function", None],
+                    "default_value" : ["Default Value", "int", 20],
+                    "min_value"     : ["Minimum", "int", 0],
+                    "max_value"     : ["Maximum", "int", 100],
+
+                    "user_data"     : ["User Data", "any", None],
+                    "width"         : ["Width", "int", None],
+                    "height"        : ["Height", "int", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "vertical"      : ["Vertical", "bool", False],
+                    "show"          : ["Visible", "bool", True],
+                    "enabled"       : ["Enabled", "bool", True]
+                }
+            },
+            # Slider (Float)
+            "slider_float" : {
+                "name"          : "Slider (Float)",
+                "data_type"     : "float",
+                "function"      : "add_slider_float",
+                "children"      : None,
+                "attributes"    : {
+                    "label"         : ["Label", "identifier", "Slider Float"],
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+                    "callback"      : ["Function", "function", None],
+                    "default_value" : ["Default Value", "int", 0.2],
+                    "min_value"     : ["Minimum", "float", 0.0],
+                    "max_value"     : ["Maximum", "float", 1.0],
+
+                    "user_data"     : ["User Data", "any", None],
+                    "width"         : ["Width", "int", None],
+                    "height"        : ["Height", "int", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "vertical"      : ["Vertical", "bool", False],
+                    "show"          : ["Visible", "bool", True],
+                    "enabled"       : ["Enabled", "bool", True]
+                }
             }
         }
