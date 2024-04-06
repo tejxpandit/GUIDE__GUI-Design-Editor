@@ -1,7 +1,7 @@
 # Title : GUIDE : Data Manager
 # Project : GUI Designer DearPyGUI
 # Author : Tej Pandit
-# Date : 1 April 2024
+# Date : 4 April 2024
 
 import dearpygui.dearpygui as dpg
 from TagGenerator import TagGenerator
