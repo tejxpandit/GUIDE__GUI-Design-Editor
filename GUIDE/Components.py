@@ -120,5 +120,82 @@ class Components:
                     "show"          : ["Visible", "bool", True],
                     "enabled"       : ["Enabled", "bool", True]
                 }
+            },
+            # Input (Int)
+            "input_int" : {
+                "name"          : "Input (Int)",
+                "data_type"     : "int",
+                "function"      : "add_input_int",
+                "children"      : None,
+                "attributes"    : {
+                    "label"         : ["Label", "identifier", "Input Int"],
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+                    "callback"      : ["Function", "function", None],
+                    "default_value" : ["Default Value", "int", 0],
+                    "min_value"     : ["Minimum", "int", 0],
+                    "max_value"     : ["Maximum", "int", 100],
+
+                    "user_data"     : ["User Data", "any", None],
+                    "width"         : ["Width", "int", None],
+                    "height"        : ["Height", "int", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "step"          : ["Step", "float", 1], # TODO: Reconsider : Make Step Default Value = None
+                    "show"          : ["Visible", "bool", True],
+                    "enabled"       : ["Enabled", "bool", True],
+                    "readonly"      : ["Read-Only", "bool", False]
+                }
+            },
+            # Input (Float)
+            "input_float" : {
+                "name"          : "Input (Float)",
+                "data_type"     : "float",
+                "function"      : "add_input_float",
+                "children"      : None,
+                "attributes"    : {
+                    "label"         : ["Label", "identifier", "Input Float"],
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+                    "callback"      : ["Function", "function", None],
+                    "default_value" : ["Default Value", "float", 0.0],
+                    "min_value"     : ["Minimum", "float", 0.0],
+                    "max_value"     : ["Maximum", "float", 1.0],
+                    
+                    "user_data"     : ["User Data", "any", None],
+                    "width"         : ["Width", "int", None],
+                    "height"        : ["Height", "int", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "step"          : ["Step", "float", 0.1], # TODO: Reconsider : Make Step Default Value = None
+                    "show"          : ["Visible", "bool", True],
+                    "enabled"       : ["Enabled", "bool", True],
+                    "readonly"      : ["Read-Only", "bool", False]
+                }
+            },
+            # Input (Text)
+            "input_text" : {
+                "name"          : "Input (Text)",
+                "data_type"     : "string",
+                "function"      : "add_input_text",
+                "children"      : None,
+                "attributes"    : {
+                    "label"         : ["Label", "identifier", "Input Text"],
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+                    "callback"      : ["Function", "function", None],
+                    "default_value" : ["Default Value", "string", None],
+                    "multiline"     : ["Multi-Line", "bool", False],
+
+                    "user_data"     : ["User Data", "any", None],
+                    "width"         : ["Width", "int", None],
+                    "height"        : ["Height", "int", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "show"          : ["Visible", "bool", True],
+                    "enabled"       : ["Enabled", "bool", True],
+                    "readonly"      : ["Read-Only", "bool", False],
+                    "password"      : ["Password", "bool", False],
+                    "uppercase"     : ["Uppercase", "bool", False],
+                    "scientific"    : ["Scientific", "bool", False],
+                    "hexadecimal"   : ["Hexadecimal", "bool", False]
+                }
             }
         }
