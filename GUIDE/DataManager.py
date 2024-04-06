@@ -24,3 +24,21 @@ class DataManager:
         else:
             print("Failed to Find & Update Component! : " + str(tag))
 
+    def addComponent(self, tag, component):
+        if "parent" in component["attributes"]:
+            # COMPONENT OR CONTAINER
+            parent = component["attributes"]["parent"][2]
+            if parent in self.data:
+                self.data[parent]["children"].append(tag) # TODO: Maybe track child index and insert after current child OR BETTER!~ read children list from DPG parent
+                self.data[tag] = component
+                print("Added Component : " + str(tag))
+            else:
+                print("Failed to Identify Parent! : " +  + str(parent))
+        else:
+            # WINDOW
+            self.data[tag] = component
+
+    def deleteComponent(self, tag):
+        self.deleteParentReference(tag)
+        self.deleteComponentRecursive(tag)
+    
