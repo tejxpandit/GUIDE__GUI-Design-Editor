@@ -42,3 +42,35 @@ class DataManager:
         self.deleteParentReference(tag)
         self.deleteComponentRecursive(tag)
     
+    def deleteParentReference(self, tag):
+        if not self.data[tag]["name"] == "Window":
+            parent_tag = self.data[tag]["attributes"]["parent"][2]
+            self.data[parent_tag]["children"] = dpg.get_item_children(parent_tag)[1]
+
+    def deleteComponentRecursive(self, tag):
+        if tag in self.data:
+            children = self.data[tag]["children"]
+            if (not children is None) and (isinstance(children, list)):
+                for child in children:
+                    self.deleteComponentRecursive(child)
+            self.data.pop(tag)
+            print("Deleted Component! : " + str(tag))
+        else:
+            print("Failed to Find & Delete Component! : " + str(tag))
+
+            
+    # def deleteComponent(self, tag):
+    #     if tag in self.data:
+    #         component = self.data[tag]
+    #         if "parent" in component["attributes"]:
+    #             # COMPONENT OR CONTAINER
+    #             parent = component["attributes"]["parent"][2]
+    #             if parent in self.data:
+    #                 self.data[parent]["children"].remove(tag)
+    #             else: 
+    #                 print("Failed to Identify Parent!")
+    #         self.data.pop(tag)
+    #         print("Deleted Component!")
+    #     else:
+    #         print("Failed to Find & Delete Component!")
+                
