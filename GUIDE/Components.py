@@ -197,5 +197,46 @@ class Components:
                     "scientific"    : ["Scientific", "bool", False],
                     "hexadecimal"   : ["Hexadecimal", "bool", False]
                 }
+            },
+            # Text
+            "text" : {
+                "name"          : "Text",
+                "data_type"     : "string",
+                "function"      : "add_text",
+                "children"      : None,
+                "attributes"    : {
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+                    "default_value" : ["Text", "string", "Text"],
+
+                    "user_data"     : ["User Data", "any", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "show"          : ["Visible", "bool", True],
+                    "wrap"          : ["Wrap Text Distance", "int", -1],
+                    "bullet"        : ["Bullet Point", "bool", False],
+                    "label"         : ["Additional Label", "identifier", None]
+                }
+            },
+            # ListBox
+            "listbox" : {
+                "name"          : "ListBox",
+                "data_type"     : "string",
+                "function"      : "add_listbox",
+                "children"      : None,
+                "attributes"    : {
+                    "label"         : ["Label", "identifier", "ListBox"],
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+                    "callback"      : ["Function", "function", None],
+                    "items"         : ["Python List", "list(string)", None],
+                    "default_value" : ["Default Value", "string", None],
+                    "num_items"     : ["# Rows Visible", "int", 3],
+
+                    "user_data"     : ["User Data", "any", None],
+                    "width"         : ["Width", "int", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "show"          : ["Visible", "bool", True],
+                    "enabled"       : ["Enabled", "bool", True]
+                }
             }
         }
