@@ -43,3 +43,16 @@ class ProjectManager:
             dpg.add_listbox(label="Saved Projects", tag="projects_listbox", callback=self.selectProject)
             dpg.add_button(label="Load Project", callback=self.loadProjectFile)
         dpg.configure_item("projects_listbox", items=self.project_files)
+
+    def selectProject(self, sender, file_name):
+        self.project_filename = file_name
+
+    def getProjectFiles(self):
+        for f in os.listdir(path=os.path.join(os.getcwd(), self.project_save_folder)):
+            if f.endswith(".guide"):
+                self.project_files.append(f)
+
+    def loadProjectFile(self):
+        with open(os.path.join(os.getcwd(), self.project_save_folder, self.project_filename), 'rb') as f:
+            self.dataman.data, self.dataman.window_data, self.dataman.taggen.tag_id = pickle.load(f)
+        self.reloadProject()
