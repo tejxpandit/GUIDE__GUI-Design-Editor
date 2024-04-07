@@ -28,3 +28,18 @@ class ProjectManager:
             dpg.add_button(label="Load Project", callback=self.loadProject)
             dpg.add_button(label="New Project", callback=self.newProject)
     
+    def newProject(self):
+        dpg.delete_item("project_manager_window")
+        self.newProjectWindow()
+
+    def loadProject(self):
+        dpg.delete_item("project_manager_window")
+        self.getProjectFiles()
+        self.loadProjectWindow()
+
+    # Load Project
+    def loadProjectWindow(self):
+        with dpg.window(label="Load Project", tag="load_project_window"):
+            dpg.add_listbox(label="Saved Projects", tag="projects_listbox", callback=self.selectProject)
+            dpg.add_button(label="Load Project", callback=self.loadProjectFile)
+        dpg.configure_item("projects_listbox", items=self.project_files)
