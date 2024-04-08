@@ -56,3 +56,10 @@ class ProjectManager:
         with open(os.path.join(os.getcwd(), self.project_save_folder, self.project_filename), 'rb') as f:
             self.dataman.data, self.dataman.window_data, self.dataman.taggen.tag_id = pickle.load(f)
         self.reloadProject()
+
+    def reloadProject(self):
+        self.dataman.project_name = self.project_filename.removesuffix(".guide")
+        dpg.delete_item("load_project_window")
+        dpg.set_viewport_title(self.dataman.project_name)
+        self.createGUIDEWindow()
+        self.rebuildProject()
