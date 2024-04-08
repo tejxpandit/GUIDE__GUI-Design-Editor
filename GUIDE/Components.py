@@ -238,5 +238,27 @@ class Components:
                     "show"          : ["Visible", "bool", True],
                     "enabled"       : ["Enabled", "bool", True]
                 }
+            },
+            # Tree Node
+            "tree_node" : {
+                "name"          : "TreeNode",
+                "data_type"     : "container",
+                "function"      : "add_tree_node",
+                "children"      : [],
+                "attributes"    : {
+                    "label"         : ["Label", "identifier", "TreeNode"],
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+
+                    "default_open"  : ["Default Open", "bool", False],
+                    "open_on_double_click" : ["Double Click to Open", "bool", False],
+                    "open_on_arrow" : ["Click Arrow (Only) to Open", "bool", False],
+                    "leaf"          : ["Always Open", "bool", False],
+                    "bullet"        : ["Bullet Point", "bool", False],
+                    "selectable"    : ["Highlight when Open", "bool", False],
+                    "pos"           : ["Position", "tuple2", None],
+                    "show"          : ["Visible", "bool", True],
+                    "user_data"     : ["User Data", "any", None]
+                }
             }
         }
