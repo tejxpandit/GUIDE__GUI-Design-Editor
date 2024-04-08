@@ -86,3 +86,15 @@ class ProjectManager:
         dpg.add_tab(label="Designer", parent="guide_tabs", tag="designer_tab")
         dpg.add_tab(label="Editor", parent="guide_tabs", tag="editor_tab")
         self.designer.createDesignerTab()
+
+    # Rebuild Project
+    def rebuildProject(self):
+        for tag, component in self.dataman.data.items():
+            self.builder.buildComponent(tag, component)
+            if not component["data_type"] == "container":
+                dpg.bind_item_handler_registry(tag, "selection_handler")
+            if component["name"] == "Window":
+                window_data = self.dataman.window_data[tag]
+                dpg.configure_item(tag, width=window_data[0], height=window_data[1], pos=window_data[2])
+            self.designer.selectComponent(0, 0, tag)
+        self.designer.updateSelectionText()
