@@ -1,7 +1,7 @@
 # Title : GUIDE : Project Manager
 # Project : GUI Designer DearPyGUI
 # Author : Tej Pandit
-# Date : 5 April 2024
+# Date : 7 April 2024
 
 import os
 import pickle
@@ -98,3 +98,19 @@ class ProjectManager:
                 dpg.configure_item(tag, width=window_data[0], height=window_data[1], pos=window_data[2])
             self.designer.selectComponent(0, 0, tag)
         self.designer.updateSelectionText()
+
+    # Get Window [Width, Height and Position]
+    def getWindowData(self):
+        for tag, component in self.dataman.data.items():
+            if component["name"] == "Window":
+                window_data = [dpg.get_item_width(tag), dpg.get_item_height(tag), dpg.get_item_pos(tag)]
+                self.dataman.window_data[tag] = window_data
+
+    # Save Project --> On Exit
+    def saveProjectOnExit(self):
+        print("Saving Project : " + self.dataman.project_name)
+        filename = self.dataman.project_name + '.guide'
+        self.getWindowData()
+        with open(os.path.join(os.getcwd(), self.project_save_folder, filename), 'wb') as f:
+            pickle.dump([self.dataman.data, self.dataman.window_data, self.dataman.taggen.tag_id], f)
+            print("Project Saved!")
