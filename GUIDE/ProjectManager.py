@@ -63,3 +63,18 @@ class ProjectManager:
         dpg.set_viewport_title(self.dataman.project_name)
         self.createGUIDEWindow()
         self.rebuildProject()
+
+    # New Project
+    def newProjectWindow(self):
+        with dpg.window(label="New Project", tag="new_project_window"):
+            dpg.add_input_text(label="Project Name", tag="project_name_text", default_value="Project_X", callback=self.newProjectName)
+            dpg.add_button(label="Create New Project", callback=self.createNewProject)
+
+    def newProjectName(self, sender, value):
+        self.dataman.project_name = value
+
+    def createNewProject(self):
+        self.dataman.project_name = dpg.get_value("project_name_text")
+        dpg.delete_item("new_project_window")
+        dpg.set_viewport_title(self.dataman.project_name)
+        self.createGUIDEWindow()
