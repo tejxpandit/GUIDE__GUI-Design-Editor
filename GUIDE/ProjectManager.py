@@ -78,3 +78,11 @@ class ProjectManager:
         dpg.delete_item("new_project_window")
         dpg.set_viewport_title(self.dataman.project_name)
         self.createGUIDEWindow()
+
+    # GUIDE Designer & Editor
+    def createGUIDEWindow(self):
+        dpg.add_window(label="GUI Design Editor", tag="guide", width=400, height=400)
+        dpg.add_tab_bar(parent="guide", tag="guide_tabs")
+        dpg.add_tab(label="Designer", parent="guide_tabs", tag="designer_tab")
+        dpg.add_tab(label="Editor", parent="guide_tabs", tag="editor_tab")
+        self.designer.createDesignerTab()
