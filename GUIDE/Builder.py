@@ -28,4 +28,22 @@ class Builder:
         # print(command)
         exec(command)
 
-    
+    def exportComponent(self, tag, component):
+        arguments = ""
+        for attr, attr_list in component["attributes"].items():
+            argument = ""
+            arg_val = attr_list[2]
+            if not arg_val == None:
+                if isinstance(arg_val, str):
+                    arg_val = "'" + arg_val + "'"
+                else:
+                    arg_val = str(arg_val)
+                argument = attr + "=" + arg_val + ", "
+            arguments += argument
+        arguments = arguments.removesuffix(", ")
+        command = "dpg." + component["function"] + "(" + arguments + ")"
+        # print(command)
+        return([tag, component, command])
+
+    def removeComponent(self, tag):
+        dpg.delete_item(tag)
