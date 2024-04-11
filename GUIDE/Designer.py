@@ -19,3 +19,10 @@ class Designer:
         self.codegen = CodeGenerator(dataman)
         self.selectionManager()
     
+    def createDesignerTab(self):
+        # SELECTION STATUS
+        with dpg.group(parent="designer_tab"):
+            dpg.add_text("Selected Container : ", tag="designer_selected_container_text")
+            dpg.add_text("Selected Component : ", tag="designer_selected_component_text")
+            dpg.add_tree_node(label="Hierarchy", tag="designer_selected_component_hierarchy")
+            dpg.add_spacer()
