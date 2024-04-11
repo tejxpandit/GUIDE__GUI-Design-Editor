@@ -26,3 +26,13 @@ class Designer:
             dpg.add_text("Selected Component : ", tag="designer_selected_component_text")
             dpg.add_tree_node(label="Hierarchy", tag="designer_selected_component_hierarchy")
             dpg.add_spacer()
+
+        # CONTAINER UI ELEMENTS
+        dpg.add_text("Containers", parent="designer_tab")
+        with dpg.group(parent="designer_tab", horizontal=True):
+            dpg.add_button(label="Window", tag="designer_add_window_button", callback=self.newComponent)
+            dpg.add_button(label="Group", tag="designer_add_group_button", callback=self.newComponent)
+            dpg.add_button(label="Tree Node", tag="designer_add_tree_node_button", callback=self.newComponent)
+            dpg.add_spacer()
+
+        
