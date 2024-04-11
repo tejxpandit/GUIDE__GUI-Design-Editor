@@ -35,4 +35,13 @@ class Designer:
             dpg.add_button(label="Tree Node", tag="designer_add_tree_node_button", callback=self.newComponent)
             dpg.add_spacer()
 
-        
+        # COMPONENT UI ELEMENTS
+        dpg.add_text("Controls", parent="designer_tab")
+        with dpg.group(parent="designer_tab", horizontal=True):
+            dpg.add_button(label="Button", tag="designer_add_button_button", callback=self.newComponent)
+        with dpg.group(parent="designer_tab", horizontal=True):
+            dpg.add_button(label="Slider (Int)", tag="designer_add_slider_int_button", callback=self.newComponent)
+            dpg.add_button(label="Slider (Float)", tag="designer_add_slider_float_button", callback=self.newComponent)
+        with dpg.group(parent="designer_tab", horizontal=True):
+            dpg.add_button(label="Input Text", tag="designer_add_input_text_button", callback=self.newComponent)
+        dpg.add_spacer(parent="designer_tab")
