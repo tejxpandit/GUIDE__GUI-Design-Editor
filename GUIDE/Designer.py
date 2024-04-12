@@ -59,3 +59,6 @@ class Designer:
             dpg.add_button(label="Delete", callback=self.editor.deleteComponent)
             dpg.add_button(label="Move Up", user_data="up", callback=self.editor.movePosition)
             dpg.add_button(label="Move Down", user_data="down", callback=self.editor.movePosition)
+        dpg.add_text("Project Controls", parent="designer_tab")
+        with dpg.group(parent="designer_tab", horizontal=True):
+            dpg.add_button(label="Export Code", callback=self.codegen.exportCode)
