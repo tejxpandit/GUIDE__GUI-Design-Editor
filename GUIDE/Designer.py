@@ -45,3 +45,10 @@ class Designer:
         with dpg.group(parent="designer_tab", horizontal=True):
             dpg.add_button(label="Input Text", tag="designer_add_input_text_button", callback=self.newComponent)
         dpg.add_spacer(parent="designer_tab")
+
+        # DISPLAY UI ELEMENTS
+        dpg.add_text("Display", parent="designer_tab")
+        with dpg.group(parent="designer_tab", horizontal=True):
+            dpg.add_button(label="Text", tag="designer_add_text_button", callback=self.newComponent)
+            dpg.add_button(label="ListBox", tag="designer_add_listbox_button", callback=self.newComponent)
+        dpg.add_spacer(parent="designer_tab")
