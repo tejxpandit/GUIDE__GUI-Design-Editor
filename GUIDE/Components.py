@@ -260,5 +260,23 @@ class Components:
                     "show"          : ["Visible", "bool", True],
                     "user_data"     : ["User Data", "any", None]
                 }
+            },
+            # Group
+            "group" : {
+                "name"          : "Group",
+                "data_type"     : "container",
+                "function"      : "add_group",
+                "children"      : [],
+                "attributes"    : {
+                    "tag"           : ["Tag", "identifier", None],
+                    "parent"        : ["Parent", "identifier", None],
+                    "horizontal"    : ["Horizontal Layout", "bool", False],
+
+                    "horizontal_spacing" : ["Horizontal Spacing", "float", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "show"          : ["Visible", "bool", True],
+                    "label"         : ["Invisible Label", "identifier", "Group"],
+                    "user_data"     : ["User Data", "any", None]
+                }
             }
         }
