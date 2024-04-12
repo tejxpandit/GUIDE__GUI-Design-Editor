@@ -52,3 +52,10 @@ class Designer:
             dpg.add_button(label="Text", tag="designer_add_text_button", callback=self.newComponent)
             dpg.add_button(label="ListBox", tag="designer_add_listbox_button", callback=self.newComponent)
         dpg.add_spacer(parent="designer_tab")
+
+        # GLOBAL CONTROLS
+        dpg.add_text("Component Controls", parent="designer_tab")
+        with dpg.group(parent="designer_tab", horizontal=True):
+            dpg.add_button(label="Delete", callback=self.editor.deleteComponent)
+            dpg.add_button(label="Move Up", user_data="up", callback=self.editor.movePosition)
+            dpg.add_button(label="Move Down", user_data="down", callback=self.editor.movePosition)
