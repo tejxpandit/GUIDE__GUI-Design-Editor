@@ -79,3 +79,11 @@ class Designer:
             if component["data_type"] == "container":
                 self.dataman.selected_container = tag
                 self.dataman.selected_component = tag
+            else:
+                self.dataman.selected_component = tag
+            self.builder.buildComponent(tag, component)
+            self.dataman.addComponent(tag, component)
+            self.updateSelectionText()
+            if not component["data_type"] == "container":
+                dpg.bind_item_handler_registry(tag, "selection_handler")
+                
