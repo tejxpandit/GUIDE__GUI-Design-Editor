@@ -278,5 +278,22 @@ class Components:
                     "label"         : ["Invisible Label", "identifier", "Group"],
                     "user_data"     : ["User Data", "any", None]
                 }
+            },
+            # Window
+            "window" : {
+                "name"          : "Window",
+                "data_type"     : "container",
+                "function"      : "add_window",
+                "children"      : [],
+                "attributes"    : {
+                    "label"         : ["Label", "identifier", "Window"],
+                    "tag"           : ["Tag", "identifier", None],
+
+                    "width"         : ["Width", "int", None],
+                    "height"        : ["Height", "int", None],
+                    "pos"           : ["Position", "tuple2", None],
+                    "show"          : ["Visible", "bool", True],
+                    "user_data"     : ["User Data", "any", None],
+                }
             }
         }
