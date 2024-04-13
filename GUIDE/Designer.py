@@ -69,3 +69,13 @@ class Designer:
         def newComponent(self, sender):
             component_type = sender.removeprefix("designer_add_").removesuffix("_button")
             self.addComponent(component_type)
+
+        def addComponent(self, component_type):
+            component = cpy.deepcopy(self.component_ref.components[component_type])
+            tag = self.taggen.generateTag(component_type)
+            component["attributes"]["tag"][2] = tag
+            if not component_type=="window":
+                component["attributes"]["parent"][2] = self.dataman.selected_container
+            if component["data_type"] == "container":
+                self.dataman.selected_container = tag
+                self.dataman.selected_component = tag
