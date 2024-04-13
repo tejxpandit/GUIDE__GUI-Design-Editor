@@ -62,3 +62,6 @@ class Designer:
         dpg.add_text("Project Controls", parent="designer_tab")
         with dpg.group(parent="designer_tab", horizontal=True):
             dpg.add_button(label="Export Code", callback=self.codegen.exportCode)
+
+        # Add Starter Window --> REMOVE LATER
+        # self.newComponent("designer_add_window_button")
