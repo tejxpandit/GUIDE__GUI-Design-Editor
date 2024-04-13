@@ -65,3 +65,7 @@ class Designer:
 
         # Add Starter Window --> REMOVE LATER
         # self.newComponent("designer_add_window_button")
+
+        def newComponent(self, sender):
+            component_type = sender.removeprefix("designer_add_").removesuffix("_button")
+            self.addComponent(component_type)
