@@ -96,3 +96,9 @@ class Designer:
             with dpg.handler_registry():
                 dpg.add_mouse_down_handler(callback=self.getActiveWindow)
                 dpg.add_key_down_handler()
+
+            # Component Selection
+            with dpg.item_handler_registry(tag="selection_handler") as handler:
+                dpg.add_item_clicked_handler(callback=self.selectionHandler)
+
+            
