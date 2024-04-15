@@ -86,4 +86,7 @@ class Designer:
             self.updateSelectionText()
             if not component["data_type"] == "container":
                 dpg.bind_item_handler_registry(tag, "selection_handler")
-                
+        
+        def deleteComponent(self, tag):
+            self.builder.removeComponent(tag)
+            self.dataman.deleteComponent(tag)
