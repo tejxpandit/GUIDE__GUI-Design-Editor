@@ -90,3 +90,9 @@ class Designer:
         def deleteComponent(self, tag):
             self.builder.removeComponent(tag)
             self.dataman.deleteComponent(tag)
+
+        def selectionManager(self):
+            # Window Selection
+            with dpg.handler_registry():
+                dpg.add_mouse_down_handler(callback=self.getActiveWindow)
+                dpg.add_key_down_handler()
