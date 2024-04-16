@@ -101,4 +101,12 @@ class Designer:
             with dpg.item_handler_registry(tag="selection_handler") as handler:
                 dpg.add_item_clicked_handler(callback=self.selectionHandler)
 
-            
+        def getActiveWindow(self):
+            tag_id = dpg.get_active_window()
+            tag = dpg.get_item_alias(tag_id)
+            if tag in self.dataman.data:
+                if not tag == self.dataman.active_window:
+                    self.dataman.active_window = tag
+                    self.dataman.selected_container = tag
+                    self.updateSelectionText()
+                    print("Selected Window : " + tag)
