@@ -120,3 +120,8 @@ class Designer:
                 if self.isContainer(tag):
                     self.dataman.selected_component = tag
                     self.dataman.selected_container = tag
+                else:
+                    self.dataman.selected_component = tag
+                    self.dataman.selected_container = self.getParent(self.dataman.selected_component)
+            self.updateSelectionText()
+            print("Selected Item : " + tag)
