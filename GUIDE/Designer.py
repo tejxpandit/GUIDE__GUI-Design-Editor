@@ -116,5 +116,7 @@ class Designer:
             if self.dataman.selected_component == tag:
                 if not self.isWindow(self.dataman.selected_container):
                     self.dataman.selected_container = self.getParent(self.dataman.selected_container)
-
-                
+            else:
+                if self.isContainer(tag):
+                    self.dataman.selected_component = tag
+                    self.dataman.selected_container = tag
