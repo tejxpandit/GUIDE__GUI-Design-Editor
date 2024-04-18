@@ -132,3 +132,10 @@ class Designer:
                 component = self.dataman.selected_component
                 level = 0
                 max_level = 10
+                while not self.isWindow(component):
+                    parent = self.getParent(component)
+                    dpg.add_button(label=parent, user_data=parent, callback=self.selectComponent)
+                    component = parent
+                    level += 1
+                    if level >= max_level:
+                        break
