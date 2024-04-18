@@ -125,3 +125,10 @@ class Designer:
                     self.dataman.selected_container = self.getParent(self.dataman.selected_component)
             self.updateSelectionText()
             print("Selected Item : " + tag)
+
+        def updateSelectionHierarchy(self):
+            dpg.delete_item("designer_selected_component_hierarchy", children_only=True)
+            with dpg.group(parent="designer_selected_component_hierarchy"):
+                component = self.dataman.selected_component
+                level = 0
+                max_level = 10
