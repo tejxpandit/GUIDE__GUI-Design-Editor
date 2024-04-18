@@ -110,3 +110,11 @@ class Designer:
                     self.dataman.selected_container = tag
                     self.updateSelectionText()
                     print("Selected Window : " + tag)
+
+        def selectionHandler(self, registryID, sender):
+            tag = dpg.get_item_alias(sender[1])
+            if self.dataman.selected_component == tag:
+                if not self.isWindow(self.dataman.selected_container):
+                    self.dataman.selected_container = self.getParent(self.dataman.selected_container)
+
+                
