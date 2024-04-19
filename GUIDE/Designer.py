@@ -139,3 +139,9 @@ class Designer:
                     level += 1
                     if level >= max_level:
                         break
+
+        def selectComponent(self, sender, value, tag):
+            if self.isContainer(tag):
+                self.dataman.selected_container = tag
+                self.dataman.selected_component = tag
+                
