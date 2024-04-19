@@ -144,4 +144,8 @@ class Designer:
             if self.isContainer(tag):
                 self.dataman.selected_container = tag
                 self.dataman.selected_component = tag
-                
+            else:
+                self.dataman.selected_container = self.getParent(tag)
+                self.dataman.selected_component = tag
+            self.updateSelectionText()
+            
