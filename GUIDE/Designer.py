@@ -149,3 +149,8 @@ class Designer:
                 self.dataman.selected_component = tag
             self.updateSelectionText()
             
+        def updateSelectionText(self):
+            dpg.set_value("designer_selected_container_text", "Selected Container : " + self.dataman.selected_container)
+            dpg.set_value("designer_selected_component_text", "Selected Component : " + self.dataman.selected_component)
+            self.updateSelectionHierarchy()
+            self.editor.updateEditorTab()
