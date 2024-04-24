@@ -158,3 +158,5 @@ class Designer:
         def getParent(self, child):
             return self.dataman.data[child]["attributes"]["parent"][2]
         
+        def isWindow(self, tag):
+            return self.dataman.data[tag]["name"] == "Window"
