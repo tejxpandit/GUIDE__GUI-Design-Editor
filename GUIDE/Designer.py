@@ -154,3 +154,7 @@ class Designer:
             dpg.set_value("designer_selected_component_text", "Selected Component : " + self.dataman.selected_component)
             self.updateSelectionHierarchy()
             self.editor.updateEditorTab()
+
+        def getParent(self, child):
+            return self.dataman.data[child]["attributes"]["parent"][2]
+        
