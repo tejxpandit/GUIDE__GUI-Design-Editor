@@ -160,3 +160,6 @@ class Designer:
         
         def isWindow(self, tag):
             return self.dataman.data[tag]["name"] == "Window"
+        
+        def isContainer(self, tag):
+            return self.dataman.data[tag]["data_type"] == "container"
