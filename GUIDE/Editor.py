@@ -17,3 +17,8 @@ class Editor:
         self.builder = Builder()
         self.component = None
         self.tag = None
+
+    def updateEditorTab(self):
+        self.tag = self.dataman.selected_component
+        self.component = cpy.deepcopy(self.dataman.data[self.tag])
+        dpg.delete_item("editor_tab", children_only=True)
