@@ -11,3 +11,9 @@ from Builder import Builder
 class Editor:
     def __init__(self, dataman):
         self.dataman = dataman
+        self.designer = None
+        self.taggen = dataman.taggen
+        self.component_ref = Components()
+        self.builder = Builder()
+        self.component = None
+        self.tag = None
