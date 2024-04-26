@@ -22,3 +22,8 @@ class Editor:
         self.tag = self.dataman.selected_component
         self.component = cpy.deepcopy(self.dataman.data[self.tag])
         dpg.delete_item("editor_tab", children_only=True)
+        with dpg.group(parent="editor_tab"):
+            for attr, attr_list in self.component["attributes"].items():
+                attr_label = attr_list[0]
+                attr_type = attr_list[1]
+                attr_default = attr_list[2]
