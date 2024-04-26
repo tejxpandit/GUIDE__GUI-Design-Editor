@@ -27,3 +27,7 @@ class Editor:
                 attr_label = attr_list[0]
                 attr_type = attr_list[1]
                 attr_default = attr_list[2]
+
+                raw_command = self.component_ref.attr_func[attr_type]
+                command = raw_command.replace("$LABEL", str(attr_label)).replace("$ATTR", str(attr))
+                
