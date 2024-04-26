@@ -317,33 +317,40 @@ class Components:
         }
 
     def Attributes(self):
-        self.attr_all = {
-                "label",
-                "tag",
-                "callback",
-                "on_close",
+        # self.attr_all = {
+        #         "label",
+        #         "tag",
+        #         "callback",
+        #         "on_close",
 
-                "width",
-                "height",
-                "pos",
-                "show",
-                "no_title_bar",
-                "menubar",
-                "collapsed",
-                "no_collapse",
-                "autosize",
-                "no_resize",
-                "no_move",
-                "no_close",
-                "no_scrollbar",
-                "no_background",
-                "modal",
-                "popup",
-                "no_focus_on_appearing",
-                "readonly",
-                "password",
-                "uppercase",
-                "scientific",
-                "hexadecimal",
-                "user_data"
-        }
+        #         "width",
+        #         "height",
+        #         "pos",
+        #         "show",
+        #         "no_title_bar",
+        #         "menubar",
+        #         "collapsed",
+        #         "no_collapse",
+        #         "autosize",
+        #         "no_resize",
+        #         "no_move",
+        #         "no_close",
+        #         "no_scrollbar",
+        #         "no_background",
+        #         "modal",
+        #         "popup",
+        #         "no_focus_on_appearing",
+        #         "readonly",
+        #         "password",
+        #         "uppercase",
+        #         "scientific",
+        #         "hexadecimal",
+        #         "user_data"
+        # }
+        self.attr_permenant = [
+            "name", "data_type"
+        ]
+        self.attr_mandatory = [
+            "label", "tag", "parent", "callback", "items", "default_value", "min_value", "max_value"
+        ]
+        
