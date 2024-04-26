@@ -30,4 +30,11 @@ class Editor:
 
                 raw_command = self.component_ref.attr_func[attr_type]
                 command = raw_command.replace("$LABEL", str(attr_label)).replace("$ATTR", str(attr))
+
+                if attr_default == None:
+                    command = command.replace("default_value=$DEFAULT,", "")
+                    command = command.replace("default_value='$DEFAULT',", "")
+                else:
+                    command = command.replace("$DEFAULT", str(attr_default))
+                # print(command)
                 
