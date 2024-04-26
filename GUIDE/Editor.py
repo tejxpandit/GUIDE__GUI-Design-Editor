@@ -37,4 +37,7 @@ class Editor:
                 else:
                     command = command.replace("$DEFAULT", str(attr_default))
                 # print(command)
-                
+                exec(command)
+
+            dpg.add_separator()
+            dpg.add_button(label="DELETE", callback=self.deleteComponent)
