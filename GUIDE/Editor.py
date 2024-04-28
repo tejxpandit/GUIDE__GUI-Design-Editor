@@ -60,5 +60,6 @@ class Editor:
                 self.designer.updateSelectionText()
                 NoWindows = False
                 break
-    
+        if NoWindows:
+            self.designer.addComponent("window")
     
