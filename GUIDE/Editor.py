@@ -47,3 +47,18 @@ class Editor:
         dpg.delete_item(self.tag)
         self.dataman.deleteComponent(self.tag)
         self.resetSelections()
+
+    def resetSelections(self):
+        NoWindows = True
+        for tag, component in self.dataman.data.items():
+            if component["name"] == "Window":
+                self.dataman.active_window = tag
+                self.dataman.selected_container = tag
+                self.dataman.selected_component = tag
+                self.tag = tag
+                self.component = component
+                self.designer.updateSelectionText()
+                NoWindows = False
+                break
+    
+    
