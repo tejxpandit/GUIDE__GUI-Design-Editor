@@ -365,3 +365,15 @@ class Components:
             "function"          : "input_text", # RECHECK THIS <-- Maybe Function Names should be auto generated
             "any"               : "input_text"  # Limited to a string currently
         }
+
+        self.attr_func = {
+            "identifier"        : "dpg.add_input_text(label='$LABEL', default_value='$DEFAULT', user_data='$ATTR', callback=self.editorControlCallback)",
+            "int"               : "dpg.add_input_int(label='$LABEL', default_value=$DEFAULT, user_data='$ATTR', callback=self.editorControlCallback)",
+            "tuple2"            : "dpg.add_input_intx(label='$LABEL'+': X Y', size=2, user_data='$ATTR', callback=self.editorControlCallback)",
+            "float"             : "dpg.add_input_float(label='$LABEL', default_value=$DEFAULT, user_data='$ATTR', callback=self.editorControlCallback)",
+            "bool"              : "dpg.add_checkbox(label='$LABEL', default_value=$DEFAULT, user_data='$ATTR', callback=self.editorControlCallback)",
+            "string"            : "dpg.add_input_text(label='$LABEL', default_value='$DEFAULT', user_data='$ATTR', callback=self.editorControlCallback)",
+            "list(string)"      : "dpg.add_input_text(label='$LABEL', default_value='$DEFAULT', user_data='$ATTR', callback=self.editorControlCallback)", # Special Handling
+            "function"          : "dpg.add_input_text(label='$LABEL', default_value='$DEFAULT', user_data='$ATTR', callback=self.editorControlCallback)", # RECHECK THIS <-- Maybe Function Names should be auto generated
+            "any"               : "dpg.add_input_text(label='$LABEL', default_value='$DEFAULT', user_data='$ATTR', callback=self.editorControlCallback)"  # Limited to a string currently
+        }
