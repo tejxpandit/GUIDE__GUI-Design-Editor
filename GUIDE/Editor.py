@@ -63,3 +63,13 @@ class Editor:
         if NoWindows:
             self.designer.addComponent("window")
     
+    def movePosition(self, sender, data, direction):
+        if not self.dataman.data[self.tag]["name"] == "Window":
+            parent_tag = self.dataman.data[self.tag]["attributes"]["parent"][2]
+            if direction == "up":
+                dpg.move_item_up(self.tag)
+            elif direction == "down":
+                dpg.move_item_down(self.tag)
+            self.dataman.data[parent_tag]["children"] = dpg.get_item_children(parent_tag)[1]
+
+    
