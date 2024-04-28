@@ -41,3 +41,9 @@ class Editor:
 
             dpg.add_separator()
             dpg.add_button(label="DELETE", callback=self.deleteComponent)
+
+    def deleteComponent(self):
+        dpg.delete_item("editor_tab", children_only=True)
+        dpg.delete_item(self.tag)
+        self.dataman.deleteComponent(self.tag)
+        self.resetSelections()
