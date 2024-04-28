@@ -353,4 +353,5 @@ class Components:
         self.attr_mandatory = [
             "label", "tag", "parent", "callback", "items", "default_value", "min_value", "max_value"
         ]
+        # self.attr_optional --> All other attributes are by default optional
         
