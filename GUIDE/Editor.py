@@ -72,4 +72,15 @@ class Editor:
                 dpg.move_item_down(self.tag)
             self.dataman.data[parent_tag]["children"] = dpg.get_item_children(parent_tag)[1]
 
-    
+    def editorControlCallback(self, sender, value, attr):
+        # if attr_type == function : default_value = self.generateFuncName(tag)
+
+        if attr == "items":
+            value = value.removeprefix("[").removesuffix("]").replace(",", " ").replace("'", " ").replace('"', " ").split()
+        
+        # TODO : WHY ARE THESE CHANGES BEING SAVED TO SELF.DATA AUTOMATICALLY ??
+        self.component["attributes"][attr][2] = value 
+        try:
+            dpg.configure_item(self.tag, **{attr : value})
+        except:
+            pass # Typing Errors
