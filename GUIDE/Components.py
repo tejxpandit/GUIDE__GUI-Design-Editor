@@ -354,4 +354,14 @@ class Components:
             "label", "tag", "parent", "callback", "items", "default_value", "min_value", "max_value"
         ]
         # self.attr_optional --> All other attributes are by default optional
-        
+        self.attr_types = {
+            "identifier"        : "input_text",
+            "int"               : "input_int",
+            "tuple2"            : "input_intx", # Limit inputs to 2
+            "float"             : "input_float",
+            "bool"              : "checkbox",
+            "string"            : "input_text",
+            "list(string)"      : "input_text", # Special Handling
+            "function"          : "input_text", # RECHECK THIS <-- Maybe Function Names should be auto generated
+            "any"               : "input_text"  # Limited to a string currently
+        }
