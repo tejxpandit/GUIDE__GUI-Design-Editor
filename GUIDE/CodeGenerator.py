@@ -27,3 +27,9 @@ class CodeGenerator:
         dpg_UI_commands = ""
         for tag, component in self.dataman.data.items():
             command = self.builder.buildComponent(tag, component)
+
+    def importCodeTemplate(self):
+        filename = "exportClass.py"
+        with open(os.path.join(os.getcwd(), self.code_template_folder, filename), 'rb') as f:
+            self.classCode = f.read()
+            print(self.classCode)
