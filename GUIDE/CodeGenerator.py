@@ -16,3 +16,11 @@ class CodeGenerator:
         self.builder = Builder()
         self.code = ""
         self.classCode = ""
+        
+        # Code Formats
+        self.snippet_callback_function = """# $FUNCNAME$
+        def $FUNCNAME$(self, sender, value, data):
+        \tself.$VARNAME$ = value
+        """
+
+    
