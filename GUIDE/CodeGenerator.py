@@ -33,3 +33,9 @@ class CodeGenerator:
         with open(os.path.join(os.getcwd(), self.code_template_folder, filename), 'rb') as f:
             self.classCode = f.read()
             print(self.classCode)
+
+    def saveCode(self):
+        filename = "code.py"
+        with open(os.path.join(os.getcwd(), self.code_export_folder, filename), 'wb') as f:
+            f.write(self.code)
+            print("Code Exported!")
