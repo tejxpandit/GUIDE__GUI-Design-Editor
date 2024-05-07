@@ -1,0 +1,18 @@
+# Title : GUIDE : Code Generator
+# Project : GUI Designer DearPyGUI
+# Author : Tej Pandit
+# Date : 6 May 2024
+
+import os
+import pickle
+import dearpygui.dearpygui as dpg
+from Builder import Builder
+
+class CodeGenerator:
+    def __init__(self, dataman):
+        self.dataman = dataman
+        self.code_export_folder = "export"
+        self.code_template_folder = "code template"
+        self.builder = Builder()
+        self.code = ""
+        self.classCode = ""
