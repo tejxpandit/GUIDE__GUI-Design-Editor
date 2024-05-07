@@ -23,4 +23,7 @@ class CodeGenerator:
         \tself.$VARNAME$ = value
         """
 
-    
+    def exportCode(self):
+        dpg_UI_commands = ""
+        for tag, component in self.dataman.data.items():
+            command = self.builder.buildComponent(tag, component)
