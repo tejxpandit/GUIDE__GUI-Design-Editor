@@ -1,7 +1,16 @@
 # Title : GUIDE Launcher
 # Project : GUI Designer DearPyGUI
 # Author : Tej Pandit
-# Date : 3 April 2024
+# Date : 8 May 2024
+
+# MINOR
+# COMPLETE : Active Window Detection --> Global Click Handler --> Check Hierarchy Root for Active Window
+# COMPLETE : Save Window Positions and Dimensions --> Restore should be already complete
+# COMPLETE : Reorder Components within Parent
+# TODO : Copy-Paste Components
+# COMPLETE : Delete Components
+
+
 
 import dearpygui.dearpygui as dpg
 from ProjectManager import ProjectManager
