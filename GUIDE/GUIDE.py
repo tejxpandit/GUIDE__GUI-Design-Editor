@@ -15,6 +15,8 @@
 # TODO : Add Components --> Add Tabs, Menus, Images Static & Dynamic, File Picker, Plots, Tables
 # TODO : Theme Customization, Component Themes & Global Themes --> Theme Manager, Fonts
 
+# ADVANCED
+# TODO : Node Editor, Custom Nodes
 
 import dearpygui.dearpygui as dpg
 from ProjectManager import ProjectManager
