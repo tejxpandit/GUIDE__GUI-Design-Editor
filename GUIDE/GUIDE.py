@@ -10,6 +10,10 @@
 # TODO : Copy-Paste Components
 # COMPLETE : Delete Components
 
+# MAJOR --> CORE
+# TODO : RENDER USER CODE --> API
+# TODO : Add Components --> Add Tabs, Menus, Images Static & Dynamic, File Picker, Plots, Tables
+# TODO : Theme Customization, Component Themes & Global Themes --> Theme Manager, Fonts
 
 
 import dearpygui.dearpygui as dpg
