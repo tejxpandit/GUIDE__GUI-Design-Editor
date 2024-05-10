@@ -8,3 +8,21 @@ from GUIDE import GUIDE
 
 app = GUIDE()
 
+# Project Reference Dictionary {"ID" : "Label"} --> Use Tags
+$PROJECTDICT$
+
+# READ DATA
+# app.read(ID)
+
+# WRITE DATA
+# app.write(ID)
+
+# SHOW COMPONENT
+# app.show(ID)
+
+# HIDE COMPONENT
+# app.hide(ID)
+
+# BUTTON TRIGGERS
+
+# OTHER TRIGGERS
