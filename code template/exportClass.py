@@ -14,3 +14,6 @@ class GUIDE:
         # GUI Variables
         # $PROJECTVARIABLES$
 
+    def initialize(self):
+        # Your Preprocess / Init / Main code goes here
+        pass
