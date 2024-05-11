@@ -17,3 +17,13 @@ class GUIDE:
     def initialize(self):
         # Your Preprocess / Init / Main code goes here
         pass
+
+    def createGUI(self, debug=False):
+        dpg.create_context()
+        dpg.create_viewport(title=self.project_name, width=1200, height=400)
+        dpg.set_exit_callback(self.exitProcess)
+        dpg.setup_dearpygui()
+        dpg.show_viewport()
+        # Project GUI
+        $PROJECTGUI$
+        pass
