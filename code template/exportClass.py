@@ -42,3 +42,7 @@ class GUIDE:
             dpg.start_dearpygui()
             #####################
         dpg.destroy_context()
+
+    def exitProcess(self):
+        # Your Post-Process / Cleanup / Exit code goes here
+        pass
