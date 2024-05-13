@@ -27,3 +27,13 @@ class GUIDE:
         # Project GUI
         $PROJECTGUI$
         pass
+
+    def runGUI(self, debug=False):
+        if debug:
+            ###### For DEBUGGING ######
+            dpg.configure_app(manual_callback_management=True)
+            while dpg.is_dearpygui_running():
+                jobs = dpg.get_callback_queue()
+                dpg.run_callbacks(jobs)
+                dpg.render_dearpygui_frame()
+            ##########################
