@@ -46,3 +46,6 @@ class GUIDE:
     def exitProcess(self):
         # Your Post-Process / Cleanup / Exit code goes here
         pass
+
+    # Project GUI Functions
+    $PROJECTFUNCTIONS$
