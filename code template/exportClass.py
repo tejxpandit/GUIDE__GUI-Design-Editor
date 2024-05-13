@@ -37,3 +37,8 @@ class GUIDE:
                 dpg.run_callbacks(jobs)
                 dpg.render_dearpygui_frame()
             ##########################
+        else:
+            ###### RUN APP ######
+            dpg.start_dearpygui()
+            #####################
+        dpg.destroy_context()
